@@ -105,3 +105,4 @@ venv.bak/
 
 #gcloud 
 app.yaml
+set_env_vars.sh
