@@ -23,7 +23,10 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ['DEBUG'] == 'True' # environment vars are strings. "convert" to boolean. lol, Python
 
 if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1']
+    ALLOWED_HOSTS = [
+        '127.0.0.1',
+        '{}.appspot.com'.format(BASE_URL)
+        ]
 else:
     ALLOWED_HOSTS = ['{}.appspot.com'.format(BASE_URL)]
 
@@ -78,11 +81,11 @@ WSGI_APPLICATION = 'jecto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'jecto',
-        'USER': 'jecto',
-        'PASSWORD': 'zjR3%8TWqJN^qkF3',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME':  os.environ['DB_NAME'],
+        'USER':  os.environ['DB_USER'],
+        'PASSWORD':  os.environ['DB_PASSWORD'],
+        'HOST':  os.environ['DB_HOST'],
+        'PORT':  os.environ['DB_PORT'],
     }
 }
 
@@ -123,4 +126,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL =  os.environ['STATIC_URL']
+
+
+# collectstatic directory (located OUTSIDE the base directory)
+# TODO: configure the name and path to your static bucket directory (where collectstatic will copy to)
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'jecto_static')

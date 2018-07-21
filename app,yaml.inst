@@ -16,6 +16,8 @@ env_variables:
   DB_PASSWORD: 'DB_PASSWORD'
 
   STATIC_URL: 'STORAGE_BUCKET_URL'
+  STATIC_BUCKET_NAME: 'STATIC_BUCKET_NAME'
+
 
 handlers:
 - url: /static

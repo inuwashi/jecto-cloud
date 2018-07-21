@@ -1,0 +1,10 @@
+export DEBUG='True' # "converted" to boolean in settings.py line 5
+export SECRET_KEY='' # TODO: enter your Django secret key here
+export DB_HOST='127.0.0.1' # home IP for connecting to the sql proxy connection with the Google Cloud database instance
+export DB_PORT='3306' # set this port when using the cloud_sql_proxy tool if you want a different port
+export DB_NAME='' # TODO: add the database name [instance id] (the database instance name from Google Cloud -> SQL)
+export DB_USER='' # TODO: add the instance username (default is postgres if you did not make a custom one)
+export DB_PASSWORD='' # TODO: add the instance password (default is the generated password associated with 'postgres')
+export STATIC_URL='/static/' # The static (development) URL
+export STATIC_BUCKET_NAME='' # The name of ths static bucket. 
+export BASE_URL='' # Used to set the base URL of the app when hosted in gcloud. 
