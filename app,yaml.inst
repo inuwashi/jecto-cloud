@@ -20,8 +20,8 @@ env_variables:
 
 
 handlers:
-- url: /static
-  static_dir: static
+- url: /media
+  static_dir: media
 
 beta_settings:
   cloud_sql_instances: CLOUD_SQL_CONNECTION_STRING

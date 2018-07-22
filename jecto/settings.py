@@ -22,13 +22,23 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG'] == 'True' # environment vars are strings. "convert" to boolean. lol, Python
 
+ADMINS = [('Adam Grandt', 'adam@ht0.co')]
+AUTH_USER_MODEL = 'authtools.User'
+
+
+
 if DEBUG:
     ALLOWED_HOSTS = [
         '127.0.0.1',
-        '{}.appspot.com'.format(BASE_URL)
+        '{}.appspot.com'.format(BASE_URL),
+        'jecto.ht0.co',
         ]
 else:
-    ALLOWED_HOSTS = ['{}.appspot.com'.format(BASE_URL)]
+    ALLOWED_HOSTS = [
+        '{}.appspot.com'.format(BASE_URL),
+        'jecto.ht0.co',
+
+    ]
 
 
 # Application definition
@@ -42,7 +52,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'authtools',
+    'crispy_forms',
+    'easy_thumbnails',   
+
+    #local
+    'site',
+    'profiles',
+    'accounts',
 ]
+
+if DEBUG: INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +75,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG: MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+
 
 ROOT_URLCONF = 'jecto.urls'
 
@@ -66,6 +93,9 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -132,3 +162,71 @@ STATIC_URL =  os.environ['STATIC_URL']
 # collectstatic directory (located OUTSIDE the base directory)
 # TODO: configure the name and path to your static bucket directory (where collectstatic will copy to)
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'jecto_static')
+
+
+
+
+# Media Settign for thumbnails 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+
+
+
+# Google Cloud Logging
+
+from google.cloud import logging
+# StackDriver setup
+client = logging.Client()
+# Connects the logger to the root logging handler; by default
+# this captures all logs at INFO level and higher
+client.setup_logging()
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': [],
+        },
+        'stackdriver': {
+            'class': 'google.cloud.logging.handlers.CloudLoggingHandler',
+            'client': client
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['stackdriver'],
+            'level': 'INFO'
+        },
+        'django': {
+            'handlers': ['stackdriver'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
