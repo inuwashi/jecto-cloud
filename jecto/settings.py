@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     #local
     'profiles',
     'accounts',
+    'jecto',
 ]
 
 if DEBUG: INSTALLED_APPS += [

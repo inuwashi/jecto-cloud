@@ -30,3 +30,4 @@ urllib3==1.23
 wheel==0.31.1
 django-debug-toolbar==1.9.1
 werkzeug==0.14.1
+restless==2.1.1
