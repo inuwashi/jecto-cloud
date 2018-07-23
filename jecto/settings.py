@@ -25,6 +25,7 @@ DEBUG = os.environ['DEBUG'] == 'True' # environment vars are strings. "convert" 
 ADMINS = [('Adam Grandt', 'adam@ht0.co')]
 AUTH_USER_MODEL = 'authtools.User'
 
+LOGIN_REDIRECT_URL = 'home'
 
 
 if DEBUG:
@@ -51,13 +52,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
     'authtools',
+    'django_extensions',
     'crispy_forms',
     'easy_thumbnails',   
 
     #local
-    'site',
     'profiles',
     'accounts',
 ]

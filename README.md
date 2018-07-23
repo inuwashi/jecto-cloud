@@ -1,4 +1,13 @@
 # jecto-cloud
+## Keep your meds in check
+
+Many people live with conditions like Multiple Sclerosis and Diabetes
+that require regularly injecting medication. This presents two challenges:
+* Remembering to inject in the right frequency, some medication are daily,
+ some are bi-daily, weekly or even monthly. Keening track of that is hard.
+* Managing where on the body the injection takes place. Some medication require that you avoid injection in the same place.  
+ This system will let you track and manage rotating injection sites and frequencies, helping you keep on top on your medication and your health.  
+
 
 ## Google Cloud deployment
 
@@ -36,7 +45,6 @@
     1. Activate the proxy by running `cloud_sql_proxy -instances="CLOUD_SQL_INSTANCE_CONNECTION_STRING"=tcp:PROXY_PORT`
     1. Update the environment variables to match.
   1. Run `pip install -r requirements.txt`
-  1. Run `pip install -r requirements/development.txt`
   1. Run `python manage.py makemigrations`
   1. Run `python manage.py migrate`
   1. Run `python manage.py runserver`

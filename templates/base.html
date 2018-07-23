@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% block description %}{% endblock description %}">
-    <meta name="author" content="Arun Ravindran">
+    <meta name="author" content="Adam Grandt">
     <link rel="shortcut icon" href="{% static 'site/ico/favicon.ico' %}">
 
     <title>{% block title %}{% include "_brandname.html" %} :: {% endblock %}</title>
@@ -17,9 +17,9 @@
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this site -->
-    {% block styles %}
     <link href="{% static 'site/css/main.css' %}" rel="stylesheet">
-    {% endblock styles %}
+    {% block styles %}{% endblock styles %}
+
 
     <!-- Custom tags for the head tag -->
     {% block extrahead %}{% endblock extrahead %}
@@ -114,12 +114,12 @@
             <div class="footer">
         <div class="row">
           <div class="col-lg-6">
-              <p>&copy; Company {% now 'Y' %}</p>
+              <p>&copy; Ht0 Consulting LLC {% now 'Y' %}</p>
           </div>
           <div class="col-lg-6 text-right">
             Connect with us on
-            <a href="#"><i class="fa fa-facebook"></i> Facebook</a> or
-            <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
+            <a href="https://www.facebook.com/ht0llc/"><i class="fa fa-facebook"></i> Facebook</a> or
+            <a href="https://twitter.com/ht0_llc"><i class="fa fa-twitter"></i> Twitter</a>
           </div>
         </div>
             </div>

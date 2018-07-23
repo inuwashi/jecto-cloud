@@ -36,7 +36,8 @@
 	</li>
         <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> {{ show_user.date_joined }}</li>
         <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> {{ show_user.last_login }}</li>
-      </ul>
+        <li class="list-group-item text-right"><span class="pull-left"><strong>Injection Frequency</strong></span> {{ show_user.profile.get_frequency_display }}</li>
+
     </div>
     <div class="col-sm-8">
       <div class="panel panel-default">
