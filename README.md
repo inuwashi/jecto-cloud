@@ -11,11 +11,12 @@ This system will let you track and manage rotating injection sites and frequenci
   medication and your health. You can set your injection frequency & password in your profile page.  
 
 
-
-
 A public demo is available at:
+
 https://jecto-210822.appspot.com/
+
 User : user@ht0.co
+
 Password : 9sTA!2V!QGv9BX*D
 
 ## Google Cloud deployment
