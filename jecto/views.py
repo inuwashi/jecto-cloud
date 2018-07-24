@@ -47,19 +47,19 @@ class HomePage(View):
                     )[0].date
                 age = (today - site.last_injection).days
                 if age > 10:
-                    site.color = '#009944'
-                if age < 0:
-                    site.color = '#990044'
+                    site.color = '#009900'
+                if age < 1:
+                    site.color = '#990000'
                 else:
                     red = 10-age
                     green = 10-red
-                    site.color = '#{}{}44'.format(
+                    site.color = '#{}{}00'.format(
                         str(red)*2,
                         str(green)*2
                     )
             except IndexError:
                 site.last_injection  = datetime.date(1970,1,1)
-                site.color = "#009944"
+                site.color = "#009900"
 
         return injection_sites
 

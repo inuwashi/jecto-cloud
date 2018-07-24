@@ -8,7 +8,8 @@
 
 {% block styles %}
 <link href="{% static 'site/css/jquery.bootgrid.min.css' %}" rel="stylesheet">
-
+<link href="{% static 'site/css/vex.css' %}" rel="stylesheet">
+<link href="{% static 'site/css/vex-theme-os.css' %}" rel="stylesheet">
 {% endblock styles %}
 
 
@@ -20,7 +21,12 @@
 <div class="short-jumbo">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
+          <h1>&nbsp;</h1>
+        </div>
+      </div>      
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
             <h1>Your Injections</h1>
         </div>
       </div>
@@ -50,11 +56,9 @@
       <div class='text-center' style="width: 100%">
         <div id='vitruvian_map' style='background-image: url("{% static '/site/img/Vitruvian_man.jpg' %}");  background-repeat: no-repeat; height:308px; width:308px;'>
           {% for site in sites %}
-            <div class = "site-marker" style = "position: absolute; top: {{ site.pos_x }}px; left: {{ site.pos_y }}px;">
-            <a class="inject" title="{{ site.name }}">
+            <div class = "site-marker inject"  title="{{ site.name }}" style = "position: absolute; top: {{ site.pos_x }}px; left: {{ site.pos_y }}px;">
               <span class="circle" style="color: {{ site.color}};"></span>
-            </a>
-          </div>
+            </div>
           {% endfor %}
         </div>
       </div>  
@@ -75,73 +79,117 @@
 
 {% endblock container %}
 
+
+<div class="modal" tabindex="-1" role="dialog" id="injection-modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Injection Recorded Successfully</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            You have recorded an injection in <span id="model-site"></span> for 
+            date <span id="modal-date"></span>.
+          
+            Keeping on top of your meds is the best way to stay healthy.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 {% block scripts %}
 <script src="{% static 'site/js/site.js' %}"></script>
 <script src="{% static 'site/js/jquery.bootgrid.min.js' %}"></script>
+<script src="{% static 'site/js/vex.combined.min.js' %}"></script>
+<script>vex.defaultOptions.className = 'vex-theme-os'</script>
 
 <script>
-// load the injection history into the table.
-$("#injection-history-grid").bootgrid({
-  navigation : 0,
-  ajax: true,
-  url: "/api/injections/",
-  ajaxSettings: {
-    method: "GET",
-    cache: false
-  },
-  formatters: {
-    "date": function(column, row) {
-      var date = Date.parse(row.date);
-      var delta = Math.round((+new Date - date) / 1000);
-      var minute = 60,
-          hour = minute * 60,
-          day = hour * 24,
-          week = day * 7;
-      var fuzzy;
-      
-      if (delta < day) {
-        fuzzy = "Today";
-      } else if (delta < day * 2) {
-        fuzzy = 'Yesterday';
-      } else if (delta < day * 3) {
-        fuzzy = 'Two days ago';
-      } else {
-        fuzzy = date;
-      }
-      return fuzzy;
-    }
-  }
-});
+  $(function() {
 
-
-// Get todays date
-var d = new Date();
-var month = d.getMonth()+1;
-var day = d.getDate();
-var today_string = d.getFullYear() + '-' +
-    ((''+month).length<2 ? '0' : '') + month + '-' +
-    ((''+day).length<2 ? '0' : '') + day;
-
-
-
-$(".inject").on("click", function(){
-  $.ajax({
-    type: 'POST',
-    url: "/api/injections/",
-    data: JSON.stringify({
-      site : $( this ).attr( 'title' ),
-      date : today_string
-    }), 
-    success: function(data) { 
-      $("#injection-history-grid").bootgrid("reload");
-      console.log(data); 
+    // load the injection history into the table.
+    $("#injection-history-grid").bootgrid({
+      navigation : 0,
+      ajax: true,
+      url: "/api/injections/",
+      ajaxSettings: {
+        method: "GET",
+        cache: false
       },
-    contentType: "application/json",
-    dataType: 'json'
-});
+      formatters: {
+        "date": function(column, row) {
+          var date = Date.parse(row.date);
+          var delta = Math.round((+new Date - date) / 1000);
+          var minute = 60,
+              hour = minute * 60,
+              day = hour * 24,
+              week = day * 7;
+          var fuzzy;
+          
+          if (delta < day) {
+            fuzzy = "Today";
+          } else if (delta < day * 2) {
+            fuzzy = 'Yesterday';
+          } else if (delta < day * 3) {
+            fuzzy = 'Two days ago';
+          } else {
+            fuzzy = row.date;
+          }
+          return fuzzy;
+        }
+      }
+    });
 
 
-})
+    // Get todays date
+    var d = new Date();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var today_string = d.getFullYear() + '-' +
+        ((''+month).length<2 ? '0' : '') + month + '-' +
+        ((''+day).length<2 ? '0' : '') + day;
+
+
+    $(".inject").on("click", function(){
+      $.ajax({
+        type: 'POST',
+        url: "/api/injections/",
+        data: JSON.stringify({
+          site : $( this ).attr( 'title' ),
+          date : today_string
+        }), 
+        success: function(data) { 
+          $("#injection-history-grid").bootgrid("reload");
+          var modal_html = `
+                      <div width="300px">
+                        <h3 class="modal-title">Injection Recorded Successfully</h3><br>
+                        <p> You have recorded an injection in your <br>${data.site} for ${data.date}.</p>
+                        <p> Keeping on top of your meds is the best way to stay healthy.</p>
+                      </div>`;
+          vex.dialog.alert({ 
+            unsafeMessage: modal_html,
+            overlayClosesOnClick: false,
+            callback : function(){
+              location.reload();
+              },
+            })
+          },
+        contentType: "application/json",
+        dataType: 'json'
+      });
+    });
+
+
+  });
 </script>
 
 {% endblock scripts %}
