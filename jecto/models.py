@@ -37,10 +37,10 @@ class Injection(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     class Meta:
-        ordering = ["date"]
+        ordering = ["-date"]
         verbose_name_plural = "Injections"
     
-    def __unicode__(self):
+    def __str__(self):
         return "[Injection : {} {} on {}]".format(
                         self.user.email,
                         self.site.name, 

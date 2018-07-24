@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 import profiles.urls
 import accounts.urls
 from . import views
-
+from .api import InjectionSiteResource, InjectionResource
 
 
 # Personalized admin site settings like title and header
@@ -21,6 +21,8 @@ urlpatterns = [
     path('about/', views.AboutPage.as_view(), name='about'),
     path('users/', include(profiles.urls)),
     path('admin/', admin.site.urls),
+    path('api/sites/', include(InjectionSiteResource.urls())),
+    path('api/injections/', include(InjectionResource.urls())),
     path('', include(accounts.urls)),
 
 

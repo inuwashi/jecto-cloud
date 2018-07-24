@@ -181,3 +181,9 @@ body>.navbar-transparent {
 .form-box form .form-control:focus {
   z-index: 2;
 }
+
+.circle:before {
+    content: ' \25CF';
+    font-size: 50px;
+    display: block;
+}
