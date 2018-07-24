@@ -40,7 +40,9 @@
     <div class="row">
         <div class="col-lg-12">
           <h3>Hello {{ user.name }},</h3>
-          <p class="lead">Your last injection was {{ last_injection.date|naturalday }}.</p>
+          {% if last_injection %}
+            <p class="lead">Your last injection was {{ last_injection.date|naturalday }}.</p>
+          {% endif %}
           {% if should_inject %}
             <h4 class="text-success">Yous should inject today.</h4>
           {% else %}

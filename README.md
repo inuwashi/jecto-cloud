@@ -6,8 +6,16 @@ that require regularly injecting medication. This presents two challenges:
 * Remembering to inject in the right frequency, some medication are daily,
  some are bi-daily, weekly or even monthly. Keening track of that is hard.
 * Managing where on the body the injection takes place. Some medication require that you avoid injection in the same place.  
- This system will let you track and manage rotating injection sites and frequencies, helping you keep on top on your medication and your health.  
+ This system will let you track and manage rotating injection sites and frequencies, helping you keep on top on your
+  medication and your health. You can set your injection frequency & password in your profile page.  
 
+
+
+
+A public demo is available at:
+https://jecto-210822.appspot.com/
+User : user@ht0.co
+Password : 9sTA!2V!QGv9BX*D
 
 ## Google Cloud deployment
 

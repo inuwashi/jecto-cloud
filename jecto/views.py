@@ -70,11 +70,16 @@ class HomePage(View):
 
             # Clean up injection dates 
             # Todo : Handle user time zone.
-            last_injection = Injection.objects.filter(user = self.request.user).latest('date')
-            next_injection_date  = last_injection.date+datetime.timedelta(days=self.request.user.profile.frequency)
-            should_inject = next_injection_date <= datetime.date.today()
-
-            # Prep Injection sites 
+            try:
+                last_injection = Injection.objects.filter(user = self.request.user).latest('date')
+                next_injection_date  = last_injection.date+datetime.timedelta(days=self.request.user.profile.frequency)
+                should_inject = next_injection_date <= datetime.date.today()
+            except Injection.DoesNotExist:
+                # Dealling with new users
+                last_injection = False
+                next_injection_date  = datetime.date.today()
+                should_inject = True
+            
            
 
             return render(self.request,"home.html",{
