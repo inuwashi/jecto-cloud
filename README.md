@@ -26,15 +26,15 @@ A public demo is available at: https://jecto-210822.appspot.com/
     1. Make sure [billing](https://cloud.google.com/billing/docs/how-to/modify-project) is enabled.
     1. Enable the [Cloud SQL Admin](https://console.developers.google.com/apis/api/sqladmin.googleapis.com/), [Stackdrive Logging APIs](https://console.cloud.google.com/flows/enableapi?apiid=logging.googleapis.com) for this project.
 1. To run in gcloud:
-  1. Copy app.yaml.inst to app.yaml and set the following values based on your new project:
-    1. BASE_URL : Should be identical to the gcloud project name. The app will be available at http://BASE_URL.appspot.com
-    1. SECRET_KEY : [Django secret key](https://docs.djangoproject.com/en/dev/ref/settings/#secret-key).
-    1. CLOUD_SQL_CONNECTION_STRING : Can be found by running `gcloud sql instances describe CLOUD-SQL-INSTANCE-ID | grep connectionName`. Required twice in the file.
-    1. DB_NAME : The name of the DB in the CloudSQL instance.
-    1. DB_USER : The username of the PostgreSQL user you want to use.
-    1. DB_PASSWORD : Password for said user.
-    1. STATIC_BUCKET_NAME : The name of the bucket your created for he static files.
-    1. STORAGE_BUCKET_URL : The URL of the storage bucket you created. you can find this by running `gsutil ls`.
+    1. Copy app.yaml.inst to app.yaml and set the following values based on your new project:
+        1. BASE_URL : Should be identical to the gcloud project name. The app will be available at http://BASE_URL.appspot.com
+        1. SECRET_KEY : [Django secret key](https://docs.djangoproject.com/en/dev/ref/settings/#secret-key).
+        1. CLOUD_SQL_CONNECTION_STRING : Can be found by running `gcloud sql instances describe CLOUD-SQL-INSTANCE-ID | grep connectionName`. Required twice in the file.
+        1. DB_NAME : The name of the DB in the CloudSQL instance.
+        1. DB_USER : The username of the PostgreSQL user you want to use.
+        1. DB_PASSWORD : Password for said user.
+        1. STATIC_BUCKET_NAME : The name of the bucket your created for he static files.
+        1. STORAGE_BUCKET_URL : The URL of the storage bucket you created. you can find this by running `gsutil ls`.
   1. Configure your gcloud profile to work with the new project and deploy.
   1. Load static files:
     1. Load local settings by running `chmod +x ./set_env_vars.sh; source ./set_env_vars.sh`
