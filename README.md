@@ -7,25 +7,24 @@ that require regularly injecting medication. This presents two challenges:
  some are bi-daily, weekly or even monthly. Keening track of that is hard.
 * Managing where on the body the injection takes place. Some medication require that you avoid injection in the same place.  
 
-This system will let you track and manage rotating injection sites and frequencies, helping you keep on top on your
-  medication and your health. You can set your injection frequency & password in your profile page.  
+This system will let you track and manage rotating injection sites and frequencies, helping you keep on top on your 
+medication and your health. You can set your injection frequency & password in your profile page.  This system is 
+a prof of concept and is not production ready. 
 
 
+A public demo is available at: https://jecto-210822.appspot.com/
 
-
-A public demo is available at:
-https://jecto-210822.appspot.com/
-User : user@ht0.co
-Password : 9sTA!2V!QGv9BX*D
+* User : user@ht0.co
+* Password : 9sTA!2V!QGv9BX*D
 
 ## Google Cloud deployment
 
 1. Clone project code in a folder.
 1. Create a google cloud project with:
-  1. A CloudSQL PostgreSQL instance and a DB.
-  1. A Storage bucket to hold static files.
-  1. Make sure [billing](https://cloud.google.com/billing/docs/how-to/modify-project) is enabled.
-  1. Enable the [Cloud SQL Admin](https://console.developers.google.com/apis/api/sqladmin.googleapis.com/), [Stackdrive Logging APIs](https://console.cloud.google.com/flows/enableapi?apiid=logging.googleapis.com) for this project.
+    1. A CloudSQL PostgreSQL instance and a DB.
+    1. A Storage bucket to hold static files.
+    1. Make sure [billing](https://cloud.google.com/billing/docs/how-to/modify-project) is enabled.
+    1. Enable the [Cloud SQL Admin](https://console.developers.google.com/apis/api/sqladmin.googleapis.com/), [Stackdrive Logging APIs](https://console.cloud.google.com/flows/enableapi?apiid=logging.googleapis.com) for this project.
 1. To run in gcloud:
   1. Copy app.yaml.inst to app.yaml and set the following values based on your new project:
     1. BASE_URL : Should be identical to the gcloud project name. The app will be available at http://BASE_URL.appspot.com
