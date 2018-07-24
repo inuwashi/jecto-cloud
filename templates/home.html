@@ -51,7 +51,7 @@
         <div id='vitruvian_map' style='background-image: url("{% static '/site/img/Vitruvian_man.jpg' %}");  background-repeat: no-repeat; height:308px; width:308px;'>
           {% for site in sites %}
             <div class = "site-marker" style = "position: absolute; top: {{ site.pos_x }}px; left: {{ site.pos_y }}px;">
-            <a href="#" title="{{ site.name }}">
+            <a class="inject" title="{{ site.name }}">
               <span class="circle" style="color: {{ site.color}};"></span>
             </a>
           </div>
@@ -113,6 +113,35 @@ $("#injection-history-grid").bootgrid({
   }
 });
 
+
+// Get todays date
+var d = new Date();
+var month = d.getMonth()+1;
+var day = d.getDate();
+var today_string = d.getFullYear() + '-' +
+    ((''+month).length<2 ? '0' : '') + month + '-' +
+    ((''+day).length<2 ? '0' : '') + day;
+
+
+
+$(".inject").on("click", function(){
+  $.ajax({
+    type: 'POST',
+    url: "/api/injections/",
+    data: JSON.stringify({
+      site : $( this ).attr( 'title' ),
+      date : today_string
+    }), 
+    success: function(data) { 
+      $("#injection-history-grid").bootgrid("reload");
+      console.log(data); 
+      },
+    contentType: "application/json",
+    dataType: 'json'
+});
+
+
+})
 </script>
 
 {% endblock scripts %}

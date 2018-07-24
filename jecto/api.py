@@ -92,7 +92,7 @@ class InjectionResource(DjangoResource):
         ))
         return Injection.objects.filter(user=self.request.user)[:10]
 
-    # POST
+    # POST /api/injections/
     def create(self):
         logger.info("Injection Create API {} request to url {} with {} from {}".format(
             self.request.method,
