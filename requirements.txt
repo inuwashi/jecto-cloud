@@ -24,7 +24,7 @@ pyasn1-modules==0.2.2
 pytz==2018.5
 requests==2.19.1
 rsa==3.4.2
-setuptools==40.0.0
+setuptools==65.5.1
 six==1.11.0
 urllib3==1.23
 wheel==0.31.1
